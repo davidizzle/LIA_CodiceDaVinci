@@ -2,8 +2,9 @@ import gradio as gr
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
-tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct")  # Or your own!
-model = AutoModelForCausalLM.from_pretrained("deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct", device_map="auto", torch_dtype=torch.float16, trust_remote_code=True)
+# deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
+tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-1.3b-instruct")  # Or your own!
+model = AutoModelForCausalLM.from_pretrained("deepseek-ai/deepseek-coder-1.3b-instruct", device_map="auto", torch_dtype=torch.float16, trust_remote_code=True)
 
 def generate_code(prompt, style="Clean & Pythonic"):
     if style == "Verbose like a 15th-century manuscript":
@@ -24,7 +25,7 @@ demo = gr.Interface(
         gr.Dropdown(["Clean & Pythonic", "Verbose like a 15th-century manuscript"], label="Code Style")
     ],
     outputs=gr.Code(label="🧾 Leonardo's Work"),
-    title="Codice Da Vinci 🧠💻",
+    title="Codice Da Vinci 📜💻",
     description="Your Renaissance coding assistant. Fluent in algorithms and Latin. Powered by LLM."
 )
 

@@ -29,6 +29,7 @@ Whether you're building bridges, drawing algorithms, or debugging with divine fl
 🤗 Hosted on Hugging Face Spaces
 
 Try asking:
+
 - "Write a Python function to calculate Fibonacci numbers"
 - "Explain recursion like you're Leonardo da Vinci"
 - "Generate a JavaScript function to toggle dark mode"
