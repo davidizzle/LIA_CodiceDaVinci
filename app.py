@@ -3,8 +3,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 # deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
-tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-1.3b-instruct")  # Or your own!
-model = AutoModelForCausalLM.from_pretrained("deepseek-ai/deepseek-coder-1.3b-instruct", torch_dtype=torch.float32, trust_remote_code=True)
+model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
+tokenizer = AutoTokenizer.from_pretrained(model_id)  # Or your own!
+model = AutoModelForCausalLM.from_pretrained(model_id, device_map=None, torch_dtype=torch.float32, trust_remote_code=True)
+model.to("cpu")
 
 def generate_code(prompt, style="Clean & Pythonic"):
     if style == "Verbose like a 15th-century manuscript":
