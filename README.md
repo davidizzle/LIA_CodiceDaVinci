@@ -1,6 +1,6 @@
 ---
-title: Leonardo da Code-Vinci
-emoji: 🧠
+title: Codice Da Vinci
+emoji: 📜
 colorFrom: indigo
 colorTo: pink
 sdk: gradio
@@ -21,7 +21,7 @@ tags:
 
 > *“Simplicity is the ultimate sophistication... unless you're writing Python one-liners.”*
 
-Welcome to **Leonardo da Code-Vinci**, your Renaissance-inspired large language model coding assistant.  
+Welcome to **Codice Da Vinci**, your Renaissance-inspired large language model coding assistant.  
 Whether you're building bridges, drawing algorithms, or debugging with divine flair — Leo's got your back.
 
 🛠️ Powered by `DeepSeek-Coder-V2-Lite-Instruct`  
