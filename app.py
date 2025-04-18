@@ -13,11 +13,11 @@ def generate_code(prompt, style="Clean & Pythonic"):
         prompt = "In a manner most detailed, write code that... " + prompt
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     outputs = model.generate(**inputs, 
-                             max_new_tokens=256,
+                             max_new_tokens=100,
                             do_sample=True,
                             temperature=1.0,
                             top_p=0.95,
-                            use_cache=False)
+                            eos_token_id=tokenizer.eos_token_id)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 demo = gr.Interface(
