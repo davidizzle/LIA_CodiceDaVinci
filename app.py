@@ -4,7 +4,8 @@ import torch
 
 # deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
 # model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
-model_id = "deepseek-ai/deepseek-coder-6.7b-instruct"
+# model_id = "deepseek-ai/deepseek-coder-6.7b-instruct"
+model_id = "deepseek-ai/DeepSeek-Coder-V2-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_id)  # Or your own!
 model = AutoModelForCausalLM.from_pretrained(model_id, 
                                             #  device_map=None, 
