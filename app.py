@@ -3,12 +3,14 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 # deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
-model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
 # model_id = "deepseek-ai/deepseek-coder-6.7b-instruct"
 # model_id = "deepseek-ai/deepseek-coder-33b-instruct"
 # model_id = "deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct"
 # model_id = "deepseek-ai/DeepSeek-Coder-V2-Instruct"
-tokenizer = AutoTokenizer.from_pretrained(model_id)  # Or your own!
+
+# This works best
+model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(model_id, 
                                             #  device_map=None, 
                                             #  torch_dtype=torch.float32, 
@@ -18,7 +20,13 @@ model = AutoModelForCausalLM.from_pretrained(model_id,
                                              )
 # model.to("cpu")
 
+spinner = gr.HTML(
+    "<div style='text-align:center'><img src='https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXViMm02MnR6bGJ4c2h3ajYzdWNtNXNtYnNic3lnN2xyZzlzbm9seSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/k32ddF9WVs44OUaZAm/giphy.gif' width='180'></div>",
+    visible=False  # hidden by default
+)
+
 def generate_code(prompt, style="Clean & Pythonic"):
+    spinner.update(visible=True)
     if style == "Verbose like a 15th-century manuscript":
         prompt = "In a manner most detailed, write code that... " + prompt
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
@@ -32,6 +40,7 @@ def generate_code(prompt, style="Clean & Pythonic"):
                             num_return_sequences=1, 
                             eos_token_id=tokenizer.eos_token_id
                             )
+    spinner.update(visible=False)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 demo = gr.Interface(
