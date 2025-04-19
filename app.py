@@ -43,15 +43,40 @@ def generate_code(prompt, style="Clean & Pythonic"):
     spinner.update(visible=False)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-demo = gr.Interface(
-    fn=generate_code,
-    inputs=[
-        gr.Textbox(label="How shall Codice Da Vinci help today?", lines=3),
-        gr.Dropdown(["Clean & Pythonic", "Verbose like a 15th-century manuscript"], label="Code Style")
-    ],
-    outputs=gr.Code(label="🧾 Leonardo's Work"),
-    title="Codice Da Vinci 📜💻",
-    description="Your Renaissance coding assistant. Fluent in algorithms and Latin. Powered by LLM."
-)
+# demo = gr.Interface(
+#     fn=generate_code,
+#     inputs=[
+#         gr.Textbox(label="How shall Codice Da Vinci help today?", lines=3),
+#         gr.Dropdown(["Clean & Pythonic", "Verbose like a 15th-century manuscript"], label="Code Style")
+#     ],
+#     outputs=gr.Code(label="🧾 Leonardo's Work"),
+#     title="Codice Da Vinci 📜💻",
+#     description="Your Renaissance coding assistant. Fluent in algorithms and Latin. Powered by LLM."
+# )
+
+with gr.Blocks() as demo:
+    gr.Markdown("<h1 style='text-align:center;'>Codice Da Vinci 📜💻</h1>")
+
+    with gr.Row():
+        prompt = gr.Textbox(label="How shall Codice Da Vinci help today?", lines=3)
+        style = gr.Dropdown(["Clean & Pythonic", "Verbose like a 15th-century manuscript"], label="Code Style")
+
+    generate_btn = gr.Button("Generate")
+
+    # Spinner with your custom GIF
+    spinner = gr.HTML(
+        "<div style='text-align:center;'><img src='file/assets/my_spinner.gif' width='100'></div>",
+        visible=False
+    )
+
+    output = gr.Code(label="🧾 Leonardo's Work")
+
+    def wrapped_generate(prompt, style):
+        spinner.visible = True
+        result = generate_code(prompt, style)
+        spinner.visible = False
+        return result
+
+    generate_btn.click(fn=wrapped_generate, inputs=[prompt, style], outputs=output)
 
 demo.launch()
