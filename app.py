@@ -5,14 +5,16 @@ import torch
 # deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
 # model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
 # model_id = "deepseek-ai/deepseek-coder-6.7b-instruct"
-model_id = "deepseek-ai/DeepSeek-Coder-V2-Instruct"
+model_id = "deepseek-ai/deepseek-coder-33b-instruct"
+# model_id = "deepseek-ai/DeepSeek-Coder-V2-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_id)  # Or your own!
 model = AutoModelForCausalLM.from_pretrained(model_id, 
                                             #  device_map=None, 
                                             #  torch_dtype=torch.float32, 
                                              device_map="auto", 
                                              torch_dtype=torch.float16, 
-                                             trust_remote_code=True)
+                                             trust_remote_code=True
+                                             )
 # model.to("cpu")
 
 def generate_code(prompt, style="Clean & Pythonic"):
