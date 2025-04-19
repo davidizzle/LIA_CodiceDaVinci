@@ -20,11 +20,6 @@ model = AutoModelForCausalLM.from_pretrained(model_id,
                                              )
 # model.to("cpu")
 
-spinner = gr.HTML(
-    "<div style='text-align:center'><img src='https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXViMm02MnR6bGJ4c2h3ajYzdWNtNXNtYnNic3lnN2xyZzlzbm9seSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/k32ddF9WVs44OUaZAm/giphy.gif' width='180'></div>",
-    visible=False  # hidden by default
-)
-
 def generate_code(prompt, style="Clean & Pythonic"):
     spinner.update(visible=True)
     if style == "Verbose like a 15th-century manuscript":
@@ -65,8 +60,8 @@ with gr.Blocks() as demo:
 
     # Spinner with your custom GIF
     spinner = gr.HTML(
-        "<div style='text-align:center;'><img src='file/assets/my_spinner.gif' width='100'></div>",
-        visible=False
+        "<div style='text-align:center'><img src='https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXViMm02MnR6bGJ4c2h3ajYzdWNtNXNtYnNic3lnN2xyZzlzbm9seSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/k32ddF9WVs44OUaZAm/giphy.gif' width='180'></div>",
+        visible=False  # hidden by default
     )
 
     output = gr.Code(label="🧾 Leonardo's Work")
