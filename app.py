@@ -21,7 +21,7 @@ model = AutoModelForCausalLM.from_pretrained(model_id,
 # model.to("cpu")
 
 def generate_code(prompt, style="Clean & Pythonic"):
-    spinner.update(visible=True)
+    # spinner.update(visible=True)
     if style == "Verbose like a 15th-century manuscript":
         prompt = "In a manner most detailed, write code that... " + prompt
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
@@ -35,7 +35,7 @@ def generate_code(prompt, style="Clean & Pythonic"):
                             num_return_sequences=1, 
                             eos_token_id=tokenizer.eos_token_id
                             )
-    spinner.update(visible=False)
+    # spinner.update(visible=False)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 # demo = gr.Interface(
