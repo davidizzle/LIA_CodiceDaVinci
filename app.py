@@ -20,11 +20,12 @@ def generate_code(prompt, style="Clean & Pythonic"):
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     outputs = model.generate(**inputs, 
                             #  max_new_tokens=100,
-                             max_new_tokens=300,
+                             max_new_tokens=500,
                             do_sample=True,
                             temperature=1.0,
                             top_p=0.95,
-                            eos_token_id=tokenizer.eos_token_id)
+                            # eos_token_id=tokenizer.eos_token_id
+                            )
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 demo = gr.Interface(
