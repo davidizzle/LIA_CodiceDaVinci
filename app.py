@@ -32,7 +32,7 @@ def generate_code(prompt, style="Clean & Pythonic"):
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     outputs = model.generate(**inputs, 
                             #  max_new_tokens=100,
-                            max_new_tokens=1024,
+                            max_new_tokens=512,
                             do_sample=False,
                             temperature=1.0,
                             top_p=0.95,
