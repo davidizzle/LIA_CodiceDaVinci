@@ -58,13 +58,14 @@ with gr.Blocks() as demo:
 
     generate_btn = gr.Button("Generate")
 
-    spinner = gr.HTML(
-        "<div style='text-align:center'><img src='https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXViMm02MnR6bGJ4c2h3ajYzdWNtNXNtYnNic3lnN2xyZzlzbm9seSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/k32ddF9WVs44OUaZAm/giphy.gif' width='180'></div>",
-        visible=False
-    )
 
     output = gr.Code(label="🧾 Leonardo's Work")
 
+    spinner = gr.HTML(
+        "<div style='text-align:center'><img src='https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXViMm02MnR6bGJ4c2h3ajYzdWNtNXNtYnNic3lnN2xyZzlzbm9seSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/k32ddF9WVs44OUaZAm/giphy.gif' width='80'></div>",
+        visible=False
+    )
+    
     def wrapped_generate(prompt, style):
         code = generate_code(prompt, style)
         return gr.update(visible=False), code
