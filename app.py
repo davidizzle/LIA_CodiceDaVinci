@@ -3,10 +3,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 # deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
-# model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
+model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
 # model_id = "deepseek-ai/deepseek-coder-6.7b-instruct"
 # model_id = "deepseek-ai/deepseek-coder-33b-instruct"
-model_id = "deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct"
+# model_id = "deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct"
 # model_id = "deepseek-ai/DeepSeek-Coder-V2-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_id)  # Or your own!
 model = AutoModelForCausalLM.from_pretrained(model_id, 
@@ -14,7 +14,7 @@ model = AutoModelForCausalLM.from_pretrained(model_id,
                                             #  torch_dtype=torch.float32, 
                                              device_map="auto", 
                                              torch_dtype=torch.float16, 
-                                             trust_remote_code=False
+                                             trust_remote_code=True
                                              )
 # model.to("cpu")
 
@@ -24,11 +24,13 @@ def generate_code(prompt, style="Clean & Pythonic"):
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     outputs = model.generate(**inputs, 
                             #  max_new_tokens=100,
-                             max_new_tokens=500,
-                            do_sample=True,
+                             max_new_tokens=512,
+                            do_sample=False,
                             temperature=1.0,
                             top_p=0.95,
-                            # eos_token_id=tokenizer.eos_token_id
+                            top_k=50, 
+                            num_return_sequences=1, 
+                            eos_token_id=tokenizer.eos_token_id
                             )
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
