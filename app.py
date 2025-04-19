@@ -58,20 +58,30 @@ with gr.Blocks() as demo:
 
     generate_btn = gr.Button("Generate")
 
-    # Spinner with your custom GIF
     spinner = gr.HTML(
         "<div style='text-align:center'><img src='https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXViMm02MnR6bGJ4c2h3ajYzdWNtNXNtYnNic3lnN2xyZzlzbm9seSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/k32ddF9WVs44OUaZAm/giphy.gif' width='180'></div>",
-        visible=False  # hidden by default
+        visible=False
     )
 
     output = gr.Code(label="🧾 Leonardo's Work")
 
     def wrapped_generate(prompt, style):
-        spinner.visible = True
-        result = generate_code(prompt, style)
-        spinner.visible = False
-        return result
+        code = generate_code(prompt, style)
+        return gr.update(visible=False), code
 
-    generate_btn.click(fn=wrapped_generate, inputs=[prompt, style], outputs=output)
+    generate_btn.click(
+        fn=wrapped_generate,
+        inputs=[prompt, style],
+        outputs=[spinner, output],
+        show_progress=True,
+        preprocess=True
+    )
+
+    generate_btn.click(
+        fn=lambda: gr.update(visible=True),
+        inputs=[],
+        outputs=[spinner],
+        queue=False
+    )
 
 demo.launch()
