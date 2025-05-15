@@ -3,13 +3,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 # deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
-# model_id = "deepseek-ai/deepseek-coder-6.7b-instruct"
+model_id = "deepseek-ai/deepseek-coder-6.7b-instruct"
 # model_id = "deepseek-ai/deepseek-coder-33b-instruct"
 # model_id = "deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct"
 # model_id = "deepseek-ai/DeepSeek-Coder-V2-Instruct"
 
 # This works best
-model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
+# model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(model_id, 
                                             #  device_map=None, 
@@ -37,17 +37,6 @@ def generate_code(prompt, style="Clean & Pythonic"):
                             )
     # spinner.update(visible=False)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
-
-# demo = gr.Interface(
-#     fn=generate_code,
-#     inputs=[
-#         gr.Textbox(label="How shall Codice Da Vinci help today?", lines=3),
-#         gr.Dropdown(["Clean & Pythonic", "Verbose like a 15th-century manuscript"], label="Code Style")
-#     ],
-#     outputs=gr.Code(label="🧾 Leonardo's Work"),
-#     title="Codice Da Vinci 📜💻",
-#     description="Your Renaissance coding assistant. Fluent in algorithms and Latin. Powered by LLM."
-# )
 
 with gr.Blocks() as demo:
     gr.Markdown("<h1 style='text-align:center;'>Codice Da Vinci 📜💻</h1>")
